@@ -7,8 +7,14 @@ author: FitPay <sdk@fit-pay.com>
 environment:
     sdk: '>=2.2.0 <3.0.0'
 
+dependencies:
+    json_annotation:
+    corsac_jwt:
+    http:
+
 dev_dependencies:
     pedantic:
     test:
     build_runner:
     build_test:
+    json_serializable:

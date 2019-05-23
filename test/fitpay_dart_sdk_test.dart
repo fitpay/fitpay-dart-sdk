@@ -5,8 +5,8 @@ void main() {
   group('A group of tests', () {
     API api;
 
-    setUp(() {
-      api = new API();
+    setUp(() async {
+      api = await initializeApiWithFirebaseToken("test", "test");
     });
 
     test('First Test', () {});
