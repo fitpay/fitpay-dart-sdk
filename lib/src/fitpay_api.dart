@@ -1,11 +1,12 @@
 import 'dart:typed_data';
 import 'dart:convert';
+import 'package:fitpay_dart_sdk/fitpay.dart';
 import 'package:fitpay_dart_sdk/src/models.dart';
 import "dart:math";
 import "package:pointycastle/pointycastle.dart";
 import "package:pointycastle/export.dart";
 import "package:pointycastle/api.dart";
-import "package:pointycastle/ecc/curves/secp256k1.dart";
+import "package:pointycastle/ecc/curves/secp256r1.dart";
 import "package:pointycastle/key_generators/api.dart";
 import "package:pointycastle/key_generators/ec_key_generator.dart";
 import "package:pointycastle/random/fortuna_random.dart";
@@ -55,19 +56,28 @@ class DataEncryptor {
   DhKey clientKeyPair;
 
   DataEncryptor({this.config}) {
-    DhGroup c = DhGroup.byGroupId(14);
-    this.clientKeyPair = c.generateKey();
+    var random = new FortunaRandom();
+
+    var domainParams = new ECDomainParameters("secp256r1");
+    var ecParams = new ECKeyGeneratorParameters(domainParams);
+    var params =
+        new ParametersWithRandom<ECKeyGeneratorParameters>(ecParams, random);
+
+    var keyGenerator = new KeyGenerator("EC");
+    keyGenerator.init(params);
+
+    sessionKeyPair = keyGenerator.generateKeyPair();
   }
 
   Future<String> currentKeyId() async {
     return serverKey.keyId;
   }
 
-  // Uint8List _seed() {
-  //   var random = Random.secure();
-  //   var seed = List<int>.generate(32, (_) => random.nextInt(256));
-  //   return Uint8List.fromList(seed);
-  // }
+  Uint8List _seed() {
+    var random = Random.secure();
+    var seed = List<int>.generate(32, (_) => random.nextInt(256));
+    return Uint8List.fromList(seed);
+  }
 
   Future<void> _register() async {
     print("${clientKeyPair.publicKey}");
@@ -104,7 +114,7 @@ class DataEncryptor {
           encodedServerPublicKey.length -
               ans1PubKeyEncoding.length); // strip the asn1 encoding header
 
-      var curve = new ECCurve_secp256k1();
+      var curve = new ECCurve_secp256r1();
       serverPublicKey = curve.curve.decodePoint(decodedServerPublicKey);
     }
   }
