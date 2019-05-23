@@ -13,6 +13,18 @@ AccessToken _$AccessTokenFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$AccessTokenToJson(AccessToken instance) =>
     <String, dynamic>{'access_token': instance.token};
 
+EncryptionKey _$EncryptionKeyFromJson(Map<String, dynamic> json) {
+  return EncryptionKey(
+      keyId: json['keyId'] as String,
+      serverPublicKey: json['serverPublicKey'] as String);
+}
+
+Map<String, dynamic> _$EncryptionKeyToJson(EncryptionKey instance) =>
+    <String, dynamic>{
+      'serverPublicKey': instance.serverPublicKey,
+      'keyId': instance.keyId
+    };
+
 User _$UserFromJson(Map<String, dynamic> json) {
   return User(
       links: (json['_links'] as Map<String, dynamic>).map(

@@ -20,8 +20,12 @@ Future<API> initializeApiWithFirebaseToken(clientId, String firebaseToken,
   });
 
   if (response.statusCode == 200) {
-    return new API(
+    API api = new API(
+        config: config,
         accessToken: AccessToken.fromJson(jsonDecode(response.body)));
+    await api.init();
+
+    return api;
   }
 
   throw ('Error initializing FitPay API with Firebase Token, statusCode ${response.statusCode}, body: ${response.body}');

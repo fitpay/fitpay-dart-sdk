@@ -11,6 +11,10 @@ dependencies:
     json_annotation:
     corsac_jwt:
     http:
+    pointycastle:
+    hex:
+    asn1lib:
+    js:
 
 dev_dependencies:
     pedantic:

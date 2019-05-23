@@ -37,6 +37,17 @@ abstract class BaseResource {
 }
 
 @JsonSerializable(nullable: false)
+class EncryptionKey extends BaseResource {
+  final String serverPublicKey;
+  final String keyId;
+
+  EncryptionKey({this.keyId, this.serverPublicKey});
+
+  factory EncryptionKey.fromJson(Map<String, dynamic> json) =>
+      _$EncryptionKeyFromJson(json);
+}
+
+@JsonSerializable(nullable: false)
 class User extends BaseResource {
   final String userId;
 
