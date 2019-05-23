@@ -28,3 +28,30 @@ class AccessToken {
   factory AccessToken.fromJson(Map<String, dynamic> json) =>
       _$AccessTokenFromJson(json);
 }
+
+@JsonSerializable(nullable: false)
+abstract class BaseResource {
+  @JsonKey(name: '_links')
+  final Map<String, Link> links;
+
+  BaseResource({this.links});
+}
+
+@JsonSerializable(nullable: false)
+class User extends BaseResource {
+  final String userId;
+
+  User({links, this.userId}) : super(links: links);
+
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+}
+
+@JsonSerializable(nullable: false)
+class Link {
+  final String href;
+  final bool templated;
+
+  Link({this.href, this.templated});
+
+  factory Link.fromJson(Map<String, dynamic> json) => _$LinkFromJson(json);
+}
