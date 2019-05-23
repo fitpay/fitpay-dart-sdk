@@ -29,7 +29,6 @@ class AccessToken {
       _$AccessTokenFromJson(json);
 }
 
-@JsonSerializable(nullable: false)
 abstract class BaseResource {
   @JsonKey(name: '_links')
   final Map<String, Link> links;
