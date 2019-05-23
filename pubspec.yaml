@@ -1,0 +1,14 @@
+name: fitpay_dart_sdk
+description: FitPay Dart SDK
+version: 0.0.1
+homepage: https://github.com/fitpay/fitpay-dart-sdk
+author: FitPay <sdk@fit-pay.com>
+
+environment:
+    sdk: '>=2.2.0 <3.0.0'
+
+dev_dependencies:
+    pedantic:
+    test:
+    build_runner:
+    build_test:
