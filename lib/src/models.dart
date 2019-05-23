@@ -40,7 +40,7 @@ abstract class BaseResource {
 class User extends BaseResource {
   final String userId;
 
-  User({links, this.userId}) : super(links: links);
+  User({Map<String, Link> links, this.userId}) : super(links: links);
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }

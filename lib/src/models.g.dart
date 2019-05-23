@@ -13,18 +13,12 @@ AccessToken _$AccessTokenFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$AccessTokenToJson(AccessToken instance) =>
     <String, dynamic>{'access_token': instance.token};
 
-BaseResource _$BaseResourceFromJson(Map<String, dynamic> json) {
-  return BaseResource(
-      links: (json['_links'] as Map<String, dynamic>).map(
-    (k, e) => MapEntry(k, Link.fromJson(e as Map<String, dynamic>)),
-  ));
-}
-
-Map<String, dynamic> _$BaseResourceToJson(BaseResource instance) =>
-    <String, dynamic>{'_links': instance.links};
-
 User _$UserFromJson(Map<String, dynamic> json) {
-  return User(links: json['_links'], userId: json['userId'] as String);
+  return User(
+      links: (json['_links'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, Link.fromJson(e as Map<String, dynamic>)),
+      ),
+      userId: json['userId'] as String);
 }
 
 Map<String, dynamic> _$UserToJson(User instance) =>
